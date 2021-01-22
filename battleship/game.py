@@ -17,6 +17,8 @@ class Game:
             print('Round %d.' % self.round)
             print('Player 1\'s turn.')
             self.player1.attack(self.player2)
+            if self.is_end():
+                break
             print('Player 2\'s turn.')
             self.player2.attack(self.player1)
             self.round += 1
