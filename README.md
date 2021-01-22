@@ -3,7 +3,7 @@ Coding interview question - battleship
 
 ### Requirements
 
-- Python3/PIP - https://www.python.org/downloads/
+- Python3.9 - https://www.python.org/downloads/release/python-390/
 - Setuptools - https://pypi.org/project/setuptools/
 - Tox - https://tox.readthedocs.io/en/latest/install.html
 
@@ -12,11 +12,15 @@ Coding interview question - battleship
 Run the test scripts.
 ```
 python -m tox
+or
+python3 -m tox
 ```
 
 Run the game.
 ```
 python -m tox -e game
+or
+python3 -m tox -e game
 ```
 
 ### Directory Organization
