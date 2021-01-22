@@ -1,7 +1,4 @@
 from setuptools import setup, find_packages
-# To use a consistent encoding
-from codecs import open
-from os import path
 
 setup(
     name='battleship',
@@ -12,12 +9,8 @@ setup(
     author_email='cjrfraser@gmail.com',
     packages=find_packages(),
     install_requires=[
-        'Click',
         'numpy',
-        'pytest'
+        'pytest',
+        'pytest-mock'
     ],
-    entry_points='''
-        [console_scripts]
-        battleship=Xerris.battleship.app:cli
-    '''
 )

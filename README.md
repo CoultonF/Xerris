@@ -1,18 +1,42 @@
 # Xerris
-Coding interview question - battleship api
+Coding interview question - battleship
 
-Windows
+### Requirements
+
+- Python3/PIP - https://www.python.org/downloads/
+- Setuptools - https://pypi.org/project/setuptools/
+- Tox - https://tox.readthedocs.io/en/latest/install.html
+
+### Running
+
+Run the test scripts.
 ```
-python -m venv venv
-venv\scripts\activate.bat
-pip install -r requirements.txt
-venv\scripts\activate.bat
+python -m tox
 ```
 
-Linux/Unix
+Run the game.
 ```
-python -m venv venv
-source venv activate
-pip install -r requirements.txt
-source venv/bin/activate
+python -m tox -e game
+```
+
+### Directory Organization
+```
+.
+├── battleship                  # Contains the source code for game classes
+|   ├── board.py
+|   ├── coordinates.py
+|   ├── game.py
+|   ├── player.py
+|   └── ship.py
+|
+├── tests                       # Contains tests automated through setuptools
+|   ├── __init__.py
+|   ├── test_board.py
+|   ├── test_coordinates.py
+|   ├── test_game.py
+|   ├── test_player.py
+|   └── test_ship.py
+|
+├── setup.py                    # Setuptools configuration
+└── tox.ini                     # Tox automated deployment and virtual environments
 ```

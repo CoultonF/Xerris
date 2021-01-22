@@ -1,4 +1,0 @@
-pip~=19.0.3
-numpy~=1.19.5
-setuptools~=40.8.0
-pytest~=6.2.1

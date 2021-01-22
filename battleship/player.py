@@ -1,29 +1,34 @@
-from board import Board
-from ship import Ship
+from battleship.board import Board
+from battleship.ship import Ship
+from battleship.coordinates import Coordinates
 
 
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.ships = [Ship()]
         self.board = Board()
+        self.coordinates = Coordinates()
         self.victory = False
-        self.defeat = False
 
-    def attack(self, opponent, pos):
-        repeat = opponent.defend(pos)
-        while repeat:
-            repeat = opponent.defend(pos)
+    def attack(self, opponent):
+        pos = self.coordinates.get_pos()
+        success = opponent.board.update(pos)
+        while not success:
+            pos = self.coordinates.get_pos()
+            success = opponent.board.update(pos)
         if not opponent.board.has_remaining_ships(self.ships[0].id()):
             self.victory = True
 
-    def defend(self, pos):
-        self.board.update(pos)
-        if self.board.has_remaining_ships(self.ships[0].id()):
-            self.defeat = True
+    def play_ships(self):
+        print('Your ship:\n', self.ships[0].area)
+        rotate = input('Rotate ship?(y/n) ') == 'y'
+        if rotate:
+            self.ships[0].rotate()
+            print("Rotated. \n", self.ships[0].area)
+        pos = self.coordinates.get_pos()
+        placed = self.board.place_ship(self.ships[0], pos)
+        while not placed:
+            pos = self.coordinates.get_pos()
+            placed = self.board.place_ship(self.ships[0], pos)
+        return True
 
-    def place_ships(self, pos):
-        for ship in self.ships:
-            repeat = self.board.place_ship(ship, pos)
-            while repeat:
-                repeat = self.board.place_ship(ship, pos)

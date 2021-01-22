@@ -15,28 +15,34 @@ class Board(object):
         row_size, col_size = ship.area.shape
         row_limit, col_limit = (row + row_size), (col + col_size)
         try:
-            if row >= self.rows or \
-               col >= self.cols or \
+            if row >= self.rows or row <= -1 or \
+               col >= self.cols or col <= -1 or \
                np.any(self.area[row:row_limit, col:col_limit] == ship.id):
                 raise ValueError
             self.area[row:row_limit, col:col_limit] += ship.area
             return True
-        except ValueError:
+        except (ValueError, IndexError):
             print("Invalid ship location. Try again.")
             return False
 
     def update(self, pos):
-        if self.area[pos] == self.__EMPTY:
-            self.area[pos] = self.__GUESSED
-            print('Miss.')
-            return True
-        elif self.area[pos] == self.__GUESSED:
-            print('Already guessed that location. Try again.')
+        try:
+            if -1 in pos:
+                raise ValueError
+            if self.area[pos] == self.__EMPTY:
+                self.area[pos] = self.__GUESSED
+                print('Miss.')
+                return True
+            elif self.area[pos] == self.__GUESSED:
+                print('Already guessed that location. Try again.')
+                return False
+            else:
+                self.area[pos] = self.__GUESSED
+                print('Hit!')
+                return True
+        except (ValueError, IndexError):
+            print('Invalid location. Try again.')
             return False
-        else:
-            self.area[pos] = self.__GUESSED
-            print('Hit!')
-            return True
 
     def has_remaining_ships(self, ship_id):
-        return np.any(self.area != ship_id)
+        return np.any(self.area == ship_id)

@@ -1,28 +1,37 @@
-from player import Player
-from coordinates import Coordinates
+from battleship.player import Player
 
 class Game:
     def __init__(self):
         self.player1 = Player()
         self.player2 = Player()
-        self.coordinates = Coordinates()
-        self.round = 0
-        self.end = False
-        self.start()
+        self.round = 1
 
-    def start(self):
-        self.ship_placement(self.player1)
-        self.ship_placement(self.player2)
-        while not self.end():
-            pass
+    def play(self):
+        print('\nRound %d - place ships.' % self.round)
+        print('Player 1\'s turn.')
+        self.player1.play_ships()
+        print('Player 2\'s turn.')
+        self.player2.play_ships()
+        self.round += 1
+        while not self.is_end():
+            print('Round %d.' % self.round)
+            print('Player 1\'s turn.')
+            self.player1.attack(self.player2)
+            print('Player 2\'s turn.')
+            self.player2.attack(self.player1)
+            self.round += 1
 
     def is_end(self):
         if self.player1.victory:
-            self.end = self.player1.victory and self.player2.defeat
             print('Player 1 wins.')
-        if self.player2.victory:
-            self.end = self.player2.victory and self.player1.defeat
+            return True
+        elif self.player2.victory:
             print('Player 2 wins.')
+            return True
+        else:
+            return False
 
-    def ship_placement(self, player):
-        player.place_ships()
+if __name__ == '__main__':
+    new_game = Game()
+    new_game.play()
+
